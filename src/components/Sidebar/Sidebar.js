@@ -22,7 +22,7 @@ import {
 import Img1 from 'assets/img/theme/default-avatar.png';
 import Brand2 from 'assets/img/brand/logo.png';
 import axios from "axios";
-import UrlNodeServer from "../../api/routes";
+import apiRoutes from "../../api/routes";
 import { ModalMyProfile } from "../Modals/ModalProfile";
 import { ModalActivity } from "components/Modals/ModalActivity";
 
@@ -62,14 +62,14 @@ class Sidebar extends React.Component {
       modalProfile: !this.state.modalProfile
     })
   }
-  toggleActiv = () => {
+  toggleActivity = () => {
     this.setState({
       modalAct: !this.state.modalAct
     })
   }
   // creates the links that appear in the left menu / Sidebar
   createLinks = async (routes) => {
-    await axios.get(UrlNodeServer.permissionsDir.permissions, {
+    await axios.get(apiRoutes.permissionsDir.permissions, {
       headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
     })
       .then(res => {
@@ -83,7 +83,8 @@ class Sidebar extends React.Component {
                 return item.id_permission === id;
               }
 
-              const esta = res.data.body.find(check)
+              const found = res.data.body.find(check)
+
               if (prop.id === 0) {
                 return (
                   <NavItem key={key}>
@@ -118,7 +119,7 @@ class Sidebar extends React.Component {
                   );
                 }
               } else {
-                if (esta) {
+                if (found) {
                   return (
                     <NavItem key={key}>
                       <NavLink
@@ -175,7 +176,7 @@ class Sidebar extends React.Component {
         />
         <ModalActivity
           modal={this.state.modalAct}
-          toggle={this.toggleActiv}
+          toggle={this.toggleActivity}
         />
         <Navbar
           className="navbar-vertical fixed-left navbar-dark bg-ligth"
@@ -222,7 +223,7 @@ class Sidebar extends React.Component {
                   </DropdownItem>
                   {
                     this.state.isAdmin === 1 ?
-                      <DropdownItem to="/admin/user-profile" onClick={this.toggleActiv}>
+                      <DropdownItem to="/admin/user-profile" onClick={this.toggleActivity}>
                         <i className="ni ni-calendar-grid-58" />
                         <span>Actividad</span>
                       </DropdownItem> : null

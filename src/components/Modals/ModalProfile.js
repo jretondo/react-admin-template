@@ -1,4 +1,4 @@
-import UrlNodeServer from '../../api/routes';
+import apiRoutes from '../../api/routes';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner } from 'reactstrap';
 import { useAxiosGetList } from '../../hooks/useAxiosGetList';
@@ -20,7 +20,7 @@ export const ModalMyProfile = ({
         errorList,
         loadingList } =
         useAxiosGetList(
-            UrlNodeServer.usersDir.sub.mydata,
+            apiRoutes.usersDir.sub.mydata,
             0, modal, []
         )
 

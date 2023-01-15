@@ -8,13 +8,13 @@ import {
 const PaginationComp = ({
     page,
     setPage,
-    data
+    dataPages
 }) => {
     const [layoutPages, setLayoutPages] = useState(<></>)
     useEffect(() => {
         listPages()
         // eslint-disable-next-line
-    }, [page, data.cantTotal, data.totalPag])
+    }, [page, dataPages.quantityPages, dataPages.lastPage])
 
     const pagePrev = (e) => {
         e.preventDefault()
@@ -25,8 +25,8 @@ const PaginationComp = ({
 
     const nextPage = (e) => {
         e.preventDefault()
-        if (data.totalPag > page) {
-            setPage(data.totalPag)
+        if (dataPages.lastPage > page) {
+            setPage(dataPages.lastPage)
         }
     }
 
@@ -38,9 +38,9 @@ const PaginationComp = ({
     }
 
     const listPages = () => {
-        if (data.totalPag) {
+        if (dataPages.lastPage) {
             setLayoutPages(
-                data.cantTotal.map((pageNumber, key) => {
+                dataPages.quantityPages.map((pageNumber, key) => {
                     return (
                         <PaginationItem className={page === pageNumber ? "active" : ""} key={key}>
                             <PaginationLink
@@ -55,7 +55,7 @@ const PaginationComp = ({
             )
         }
     }
-    if (data.totalPag) {
+    if (dataPages.lastPage) {
         return (
             <>
                 <nav aria-label="...">
@@ -76,7 +76,7 @@ const PaginationComp = ({
 
                         {layoutPages}
 
-                        <PaginationItem className={page === data.totalPag ? "disabled" : ""}>
+                        <PaginationItem className={page === dataPages.lastPage ? "disabled" : ""}>
                             <PaginationLink
                                 href="#"
                                 onClick={e => nextPage(e)}
