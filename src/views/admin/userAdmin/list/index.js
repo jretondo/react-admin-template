@@ -126,7 +126,7 @@ const UserList = ({
                         {!pageObj ? null : <Pagination
                             page={page}
                             setPage={setPage}
-                            data={pageObj}
+                            dataPages={pageObj}
                         />}
                     </Col>
                 </Row>
