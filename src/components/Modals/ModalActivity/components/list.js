@@ -51,7 +51,7 @@ const List = ({
                     <PaginationComp
                         page={page}
                         setPage={setPage}
-                        data={pageObj}
+                        dataPages={pageObj}
                     />
                 </Col>
             </Row>
